@@ -286,24 +286,27 @@ const Dashboard: React.FC<DashboardProps> = ({
             <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
               <h3 className="text-lg font-semibold text-slate-800 mb-4">Despesas por Categoria</h3>
               <div className="flex items-center h-64">
-                {/* Left Side: Custom Legend - Reduced width to 1/3 to emphasize chart */}
+                {/* Left Side: Custom Legend - Width 1/3 */}
                 <div className="w-1/3 flex flex-col justify-center space-y-3 pr-2 overflow-y-auto max-h-full scrollbar-hide">
                   {summary.expensesByCategory.map((entry, index) => {
                      const percentage = summary.totalExpense > 0 
                         ? ((entry.value / summary.totalExpense) * 100).toFixed(0) 
                         : 0;
                      return (
-                       <div key={`legend-${index}`} className="flex items-center justify-between w-full">
-                          <div className="flex items-center gap-2 min-w-0 flex-1 pr-2">
-                             <div 
-                               className="w-3 h-3 rounded-full flex-shrink-0" 
-                               style={{ backgroundColor: COLORS[index % COLORS.length] }} 
-                             />
-                             <span className="text-sm text-slate-600 truncate" title={entry.name}>
-                               {entry.name}
-                             </span>
-                          </div>
-                          <span className="text-sm font-bold text-slate-800 flex-shrink-0">{percentage}%</span>
+                       <div key={`legend-${index}`} className="flex items-center w-full">
+                          {/* Color Dot */}
+                          <div 
+                             className="w-3 h-3 rounded-full flex-shrink-0 mr-3" 
+                             style={{ backgroundColor: COLORS[index % COLORS.length] }} 
+                          />
+                          {/* Percentage (Centralized) */}
+                          <span className="text-sm font-bold text-slate-800 w-10 text-center flex-shrink-0">
+                             {percentage}%
+                          </span>
+                          {/* Name */}
+                          <span className="text-sm text-slate-600 truncate ml-2 flex-1" title={entry.name}>
+                             {entry.name}
+                          </span>
                        </div>
                      );
                   })}
@@ -312,8 +315,8 @@ const Dashboard: React.FC<DashboardProps> = ({
                   )}
                 </div>
 
-                {/* Right Side: Chart - Increased width to 2/3 */}
-                <div className="w-2/3 h-full">
+                {/* Right Side: Chart - Width 2/3 */}
+                <div className="w-2/3 h-full flex items-center justify-center">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                       <Pie
